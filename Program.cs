@@ -98,9 +98,9 @@ namespace DataStructuresBasics
             return names[randomIndex];
         }
 
-        public static int randomNumberInRange()
+        public static int randomNumberInRange(int limit)
         {
-            return Convert.ToInt32(random.NextDouble() * 20);
+            return Convert.ToInt32(random.NextDouble() * limit);
         }
 
 
@@ -111,6 +111,7 @@ namespace DataStructuresBasics
             Queue<string> qsLineWaiters = new Queue<string>();
             Dictionary<string, int> dsiCustomers = new Dictionary<string,int>();
             int iNumCustomers = 0;
+            int iLimitPerOrder = 0;
             bool bRepeat = true;
 
 
@@ -132,7 +133,28 @@ namespace DataStructuresBasics
                     bRepeat = true;
                 }
             }
-            
+
+
+            //EXTRA:
+            //ask them how many burgers they want to be the limit for one order
+            Console.WriteLine();
+            bRepeat = true;
+            while (bRepeat)
+            {
+                bRepeat = false;
+                try
+                {
+                    Console.Write("What is the limit for how many burgers a customer can order at one time? ");
+                    iLimitPerOrder = Convert.ToInt32(Console.ReadLine());
+                }
+                catch
+                {
+                    Console.WriteLine("Please enter a valid integer");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    bRepeat = true;
+                }
+            }
 
 
             //fill the queue with random names
@@ -148,11 +170,11 @@ namespace DataStructuresBasics
                 //if name not found, make a new entry. If found, add the amount to the existing total
                 if (dsiCustomers.ContainsKey(name))
                 {
-                    dsiCustomers[name] += randomNumberInRange();
+                    dsiCustomers[name] += randomNumberInRange(iLimitPerOrder);
                 }
                 else
                 {
-                    dsiCustomers.Add(name, randomNumberInRange());
+                    dsiCustomers.Add(name, randomNumberInRange(iLimitPerOrder));
                 }
             }
 
@@ -174,6 +196,8 @@ namespace DataStructuresBasics
             //EXTRA
             //print the sorted data from the list out:
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Here is the list of customers sorted by their number of burgers eaten:");
             Console.WriteLine();
             foreach (var customer in lSortedCustomers)
             {
