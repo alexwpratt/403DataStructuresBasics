@@ -72,6 +72,9 @@ If you are using the provided randomName function, you will encounter the same c
 
 Once you have iterated over all the customers in the queue, you need to print their name and the total number of burgers consumed. Do this by iterating over your dictionary. Again, there are many ways to accomplish this; you can choose to do it any way as long as your output resembles the sample output above.
  * 
+ * 
+ * 
+ * EXTRA: see github repo at https://github.com/awpratt/403DataStructuresBasics
  * */
 
 
@@ -110,17 +113,20 @@ namespace DataStructuresBasics
             int iNumCustomers = 0;
             bool bRepeat = true;
 
+
+            //EXTRA:
+            //ask the user how many orders they want:
             while (bRepeat)
             {
                 bRepeat = false;
                 try 
                 {
-                    Console.Write("How many customers would you like to have entered? ");
+                    Console.Write("How many customer orders would you like to have generated? ");
                     iNumCustomers = Convert.ToInt32(Console.ReadLine());
                 }
                 catch 
                 {
-                    Console.WriteLine("Please enter a valid number");
+                    Console.WriteLine("Please enter a valid integer");
                     Console.WriteLine();
                     Console.WriteLine();
                     bRepeat = true;
@@ -156,9 +162,23 @@ namespace DataStructuresBasics
             Console.WriteLine();
             foreach (KeyValuePair<string, int> customer in dsiCustomers)
             {
-                Console.WriteLine(customer.Key + " " + customer.Value);
+                Console.WriteLine(Convert.ToString(customer.Key).PadRight(25, ' ') + " " + Convert.ToString(customer.Value).PadRight(25, ' '));
             }
 
+
+            //EXTRA
+            //sort the data by who ate the most burgers:
+            var lSortedCustomers = dsiCustomers.ToList();
+            lSortedCustomers.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+
+            //EXTRA
+            //print the sorted data from the list out:
+            Console.WriteLine();
+            Console.WriteLine();
+            foreach (var customer in lSortedCustomers)
+            {
+                Console.WriteLine(Convert.ToString(customer.Key).PadRight(25, ' ') + " " + Convert.ToString(customer.Value).PadRight(25, ' '));
+            }
 
 
 
