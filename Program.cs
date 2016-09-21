@@ -168,14 +168,11 @@ namespace DataStructuresBasics
             foreach (string name in qsLineWaiters)
             {
                 //if name not found, make a new entry. If found, add the amount to the existing total
-                if (dsiCustomers.ContainsKey(name))
+                if (!dsiCustomers.ContainsKey(name))
                 {
-                    dsiCustomers[name] += randomNumberInRange(iLimitPerOrder);
+                    dsiCustomers.Add(name, 0); 
                 }
-                else
-                {
-                    dsiCustomers.Add(name, randomNumberInRange(iLimitPerOrder));
-                }
+                dsiCustomers[name] += randomNumberInRange(iLimitPerOrder);
             }
 
 
